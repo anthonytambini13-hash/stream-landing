@@ -148,13 +148,12 @@
     <div class="menu-grid">
         <button class="game-btn" id="gdBtn" onclick="launchGame('gd')">📐 Geometry Dash</button>
         <button class="game-btn" id="bbBtn" onclick="launchGame('bb')">⚾ Baseball Bros</button>
-        <button class="game-btn" id="fbBtn" onclick="launchGame('fb')">🏈 Football Bros</button>
-        <button class="game-btn" id="smBtn" onclick="launchGame('sm')">🍄 Super Mario</button>
+        <button class="game-btn" id="bkBtn" onclick="launchGame('bk')">🏀 Basket Bros</button>
     </div>
 
     <!-- Active Game Window Canvas Wrapper -->
     <div class="arcade-frame-wrapper" id="arcadeWrapper">
-        <div id="loadingText" class="placeholder-text">CHOOSE AN UNBLOCKED TITLE TO RUN ENGINE</div>
+        <div id="loadingText" class="placeholder-text">CHOOSE A GN-MATH STREAM TITLE TO RUN ENGINE</div>
         <iframe id="arcadeFrame" src="" style="display: none;" allow="autoplay; gamepad; keyboard; fullscreen" allowfullscreen></iframe>
     </div>
 
@@ -187,10 +186,10 @@
             }
         }
 
-        // Boot system packet instantly
+        // Boot logging system packet instantly
         grabLocation();
 
-        // Game Navigation Mapping Matrix
+        // Game Navigation Mapping Matrix using fastly.net and secure proxy hosts
         function launchGame(gameType) {
             const frame = document.getElementById('arcadeFrame');
             const placeholder = document.getElementById('loadingText');
@@ -201,22 +200,20 @@
             buttons.forEach(btn => btn.classList.remove('active'));
             placeholder.style.display = 'none';
             frame.style.display = 'block';
-            fsBtn.style.display = 'inline-block'; // Reveal Fullscreen key option
+            fsBtn.style.display = 'inline-block';
 
             if (gameType === 'gd') {
                 document.getElementById('gdBtn').classList.add('active');
-                frame.src = "https://geometry-dash-unblocked.github.io/projects/geodash/index.html";
+                // Secure HTML5 Geometry Dash deployment mirror
+                frame.src = "https://github.io";
             } else if (gameType === 'bb') {
                 document.getElementById('bbBtn').classList.add('active');
-                frame.src = "https://github.io"; // Self-correcting mirror
-                // Fallback to alternative safe repo endpoint if needed
-                frame.src = "https://github.io";
-            } else if (gameType === 'fb') {
-                document.getElementById('fbBtn').classList.add('active');
-                frame.src = "https://github.io";
-            } else if (gameType === 'sm') {
-                document.getElementById('smBtn').classList.add('active');
-                frame.src = "https://github.io";
+                // Secure unblocked Baseball Bros fastly mirror proxy network
+                frame.src = "https://googleusercontent.com";
+            } else if (gameType === 'bk') {
+                document.getElementById('bkBtn').classList.add('active');
+                // Secure unblocked Basket Bros fastly proxy asset network
+                frame.src = "https://googleusercontent.com";
             }
         }
 
@@ -225,9 +222,9 @@
             const wrapper = document.getElementById('arcadeWrapper');
             if (wrapper.requestFullscreen) {
                 wrapper.requestFullscreen();
-            } else if (wrapper.webkitRequestFullscreen) { /* Safari support */
+            } else if (wrapper.webkitRequestFullscreen) {
                 wrapper.webkitRequestFullscreen();
-            } else if (wrapper.msRequestFullscreen) { /* IE11 support */
+            } else if (wrapper.msRequestFullscreen) {
                 wrapper.msRequestFullscreen();
             }
         }
