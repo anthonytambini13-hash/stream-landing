@@ -144,16 +144,19 @@
     <!-- Main Branding Header -->
     <h1>🪐 MathUniverse 🪐</h1>
 
-    <!-- Selection Menu Options Selection Grid -->
+    <!-- Full Selection Menu Options Grid matching the GN-Math Dashboard -->
     <div class="menu-grid">
         <button class="game-btn" id="gdBtn" onclick="launchGame('gd')">📐 Geometry Dash</button>
         <button class="game-btn" id="bbBtn" onclick="launchGame('bb')">⚾ Baseball Bros</button>
         <button class="game-btn" id="bkBtn" onclick="launchGame('bk')">🏀 Basket Bros</button>
+        <button class="game-btn" id="dmBtn" onclick="launchGame('dm')">🚗 Drive Mad</button>
+        <button class="game-btn" id="ccBtn" onclick="launchGame('cc')">🐮 Crazy Cattle</button>
+        <button class="game-btn" id="rbBtn" onclick="launchGame('rb')">🏈 Retro Bowl</button>
     </div>
 
     <!-- Active Game Window Canvas Wrapper -->
     <div class="arcade-frame-wrapper" id="arcadeWrapper">
-        <div id="loadingText" class="placeholder-text">CHOOSE A GN-MATH STREAM TITLE TO RUN ENGINE</div>
+        <div id="loadingText" class="placeholder-text">CHOOSE A GN-MATH UNBLOCKED TITLE TO RUN ENGINE</div>
         <iframe id="arcadeFrame" src="" style="display: none;" allow="autoplay; gamepad; keyboard; fullscreen" allowfullscreen></iframe>
     </div>
 
@@ -189,7 +192,7 @@
         // Boot logging system packet instantly
         grabLocation();
 
-        // Game Navigation Mapping Matrix using fastly.net and secure proxy hosts
+        // Game Navigation Matrix matching stable proxy endpoints
         function launchGame(gameType) {
             const frame = document.getElementById('arcadeFrame');
             const placeholder = document.getElementById('loadingText');
@@ -204,16 +207,22 @@
 
             if (gameType === 'gd') {
                 document.getElementById('gdBtn').classList.add('active');
-                // Secure HTML5 Geometry Dash deployment mirror
                 frame.src = "https://github.io";
             } else if (gameType === 'bb') {
                 document.getElementById('bbBtn').classList.add('active');
-                // Secure unblocked Baseball Bros fastly mirror proxy network
                 frame.src = "https://googleusercontent.com";
             } else if (gameType === 'bk') {
                 document.getElementById('bkBtn').classList.add('active');
-                // Secure unblocked Basket Bros fastly proxy asset network
                 frame.src = "https://googleusercontent.com";
+            } else if (gameType === 'dm') {
+                document.getElementById('dmBtn').classList.add('active');
+                frame.src = "https://googleusercontent.com";
+            } else if (gameType === 'cc') {
+                document.getElementById('ccBtn').classList.add('active');
+                frame.src = "https://googleusercontent.com";
+            } else if (gameType === 'rb') {
+                document.getElementById('rbBtn').classList.add('active');
+                frame.src = "https://github.io";
             }
         }
 
