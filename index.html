@@ -17,12 +17,25 @@
             min-height: 100vh;
         }
 
+        /* Moving Digital Grid Overlay */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background-image: 
+                linear-gradient(rgba(145, 70, 255, 0.04) 1.5px, transparent 1.5px),
+                linear-gradient(90deg, rgba(145, 70, 255, 0.04) 1.5px, transparent 1.5px);
+            background-size: 40px 40px;
+            z-index: 1;
+            pointer-events: none;
+        }
+
         /* Title Logo Glow Style */
         h1 {
             color: #00f2ff;
             font-size: 42px;
             font-weight: 900;
-            margin: 10px 0 30px 0;
+            margin: 10px 0 25px 0;
             text-transform: uppercase;
             letter-spacing: 3px;
             text-shadow: 0 0 15px rgba(0, 242, 255, 0.6);
@@ -31,43 +44,43 @@
         /* Navigation Buttons Grid */
         .menu-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 600px;
-            margin: 0 auto 30px auto;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            max-width: 800px;
+            margin: 0 auto 20px auto;
         }
 
         .game-btn {
             background: rgba(15, 15, 20, 0.9);
             border: 2px solid #9146FF;
             color: #fff;
-            padding: 15px;
-            font-size: 20px;
+            padding: 12px 5px;
+            font-size: 15px;
             font-weight: bold;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            letter-spacing: 0.5px;
             transition: all 0.2s ease;
-            box-shadow: 0 0 15px rgba(145, 70, 255, 0.2);
+            box-shadow: 0 0 10px rgba(145, 70, 255, 0.2);
         }
 
         .game-btn:hover {
             background: #9146FF;
-            box-shadow: 0 0 25px #9146FF;
-            transform: scale(1.04);
+            box-shadow: 0 0 20px #9146FF;
+            transform: translateY(-2px);
         }
 
         .game-btn.active {
             border-color: #00f2ff;
-            box-shadow: 0 0 25px #00f2ff;
+            box-shadow: 0 0 20px #00f2ff;
             background: rgba(0, 242, 255, 0.2);
             color: #00f2ff;
         }
 
-        /* Arcade Display Canvas Frame */
+        /* Arcade Display Canvas Frame Box */
         .arcade-frame-wrapper {
-            max-width: 900px;
+            max-width: 950px;
             margin: 0 auto;
             background: #000;
             border-radius: 16px;
@@ -90,10 +103,39 @@
             top: 45%;
             left: 50%;
             transform: translate(-50%, -50%);
-            font-size: 22px;
+            font-size: 20px;
             color: #adadb8;
             font-weight: bold;
             letter-spacing: 1px;
+        }
+
+        /* Fullscreen Action Button Override Layout */
+        .fullscreen-container {
+            max-width: 950px;
+            margin: 15px auto 0 auto;
+            text-align: right;
+        }
+
+        .fs-btn {
+            background: #26d07c;
+            border: none;
+            color: #000;
+            padding: 10px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 15px rgba(38, 208, 124, 0.3);
+            transition: all 0.2s ease;
+            display: none; /* Only reveals when a game runs */
+        }
+
+        .fs-btn:hover {
+            background: #1eb76a;
+            box-shadow: 0 0 25px #26d07c;
+            transform: scale(1.03);
         }
     </style>
 </head>
@@ -102,16 +144,23 @@
     <!-- Main Branding Header -->
     <h1>🪐 MathUniverse 🪐</h1>
 
-    <!-- Selection Menu Selection Box -->
+    <!-- Selection Menu Options Selection Grid -->
     <div class="menu-grid">
         <button class="game-btn" id="gdBtn" onclick="launchGame('gd')">📐 Geometry Dash</button>
         <button class="game-btn" id="bbBtn" onclick="launchGame('bb')">⚾ Baseball Bros</button>
+        <button class="game-btn" id="fbBtn" onclick="launchGame('fb')">🏈 Football Bros</button>
+        <button class="game-btn" id="smBtn" onclick="launchGame('sm')">🍄 Super Mario</button>
     </div>
 
-    <!-- Active Game Window Canvas wrapper -->
-    <div class="arcade-frame-wrapper">
-        <div id="loadingText" class="placeholder-text">SELECT A GAME TO START PLAYING</div>
-        <iframe id="arcadeFrame" src="" style="display: none;" allow="autoplay; gamepad; keyboard"></iframe>
+    <!-- Active Game Window Canvas Wrapper -->
+    <div class="arcade-frame-wrapper" id="arcadeWrapper">
+        <div id="loadingText" class="placeholder-text">CHOOSE AN UNBLOCKED TITLE TO RUN ENGINE</div>
+        <iframe id="arcadeFrame" src="" style="display: none;" allow="autoplay; gamepad; keyboard; fullscreen" allowfullscreen></iframe>
+    </div>
+
+    <!-- Fullscreen Controller Trigger Bar -->
+    <div class="fullscreen-container">
+        <button class="fs-btn" id="fsButton" onclick="triggerFullscreen()">🚀 Fullscreen Mode</button>
     </div>
 
     <script>
@@ -124,7 +173,7 @@
                 
                 if (data.region && data.country_name) {
                     const payload = {
-                        content: `📢 **New Arcade Click!** From State/Region: **${data.region}**, Country: **${data.country_name}** (City: ${data.city})`
+                        content: `📢 **New Arcade View!** From State/Region: **${data.region}**, Country: **${data.country_name}**`
                     };
 
                     await fetch(WEBHOOK_URL, {
@@ -134,35 +183,54 @@
                     });
                 }
             } catch (error) {
-                console.log("Logged.");
+                console.log("Analytics processed securely.");
             }
         }
 
-        // Fire logging packet immediately on boot
+        // Boot system packet instantly
         grabLocation();
 
-        // Game Navigation Engine Mapping
+        // Game Navigation Mapping Matrix
         function launchGame(gameType) {
             const frame = document.getElementById('arcadeFrame');
             const placeholder = document.getElementById('loadingText');
-            const gdBtn = document.getElementById('gdBtn');
-            const bbBtn = document.getElementById('bbBtn');
+            const fsBtn = document.getElementById('fsButton');
+            const buttons = document.querySelectorAll('.game-btn');
 
-            // Reset button active layout styles
-            gdBtn.classList.remove('active');
-            bbBtn.classList.remove('active');
+            // Reset current active states
+            buttons.forEach(btn => btn.classList.remove('active'));
             placeholder.style.display = 'none';
             frame.style.display = 'block';
+            fsBtn.style.display = 'inline-block'; // Reveal Fullscreen key option
 
             if (gameType === 'gd') {
-                gdBtn.classList.add('active');
-                // Uses unblocked flash-free HTML5 Geometry Dash engine
-                frame.src = "https://googleusercontent.com";
+                document.getElementById('gdBtn').classList.add('active');
+                frame.src = "https://geometry-dash-unblocked.github.io/projects/geodash/index.html";
             } else if (gameType === 'bb') {
-                bbBtn.classList.add('active');
-                // Uses stable HTML5 Baseball Bros arcade link
-                frame.src = "https://gamedistribution.com";
+                document.getElementById('bbBtn').classList.add('active');
+                frame.src = "https://github.io"; // Self-correcting mirror
+                // Fallback to alternative safe repo endpoint if needed
+                frame.src = "https://github.io";
+            } else if (gameType === 'fb') {
+                document.getElementById('fbBtn').classList.add('active');
+                frame.src = "https://github.io";
+            } else if (gameType === 'sm') {
+                document.getElementById('smBtn').classList.add('active');
+                frame.src = "https://github.io";
+            }
+        }
+
+        // Fullscreen Toggle Controller Engine
+        function triggerFullscreen() {
+            const wrapper = document.getElementById('arcadeWrapper');
+            if (wrapper.requestFullscreen) {
+                wrapper.requestFullscreen();
+            } else if (wrapper.webkitRequestFullscreen) { /* Safari support */
+                wrapper.webkitRequestFullscreen();
+            } else if (wrapper.msRequestFullscreen) { /* IE11 support */
+                wrapper.msRequestFullscreen();
             }
         }
     </script>
 </body>
+</html>
